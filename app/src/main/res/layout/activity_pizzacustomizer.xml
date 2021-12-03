@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    tools:context=".PizzaCustomizerActivity">
+
+    <LinearLayout
+        android:id="@+id/pizzaCustomizerWindow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/design_default_color_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/flavorGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="100dp">
+
+            <RadioButton
+                android:id="@+id/deluxePizza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deluxe" />
+
+            <RadioButton
+                android:id="@+id/pepperoniPizza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pepperoni"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <RadioButton
+                android:id="@+id/hawaiianPizza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hawaiian" />
+        </RadioGroup>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/toppingGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="100dp"
+            app:chipSpacing="5dp"
+            app:chipSpacingHorizontal="5dp"
+            app:chipSpacingVertical="5dp"
+            app:singleLine="false"
+            app:singleSelection="false">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/bacon"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bacon" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/extra_cheese"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/extra_cheese" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tomato"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tomato" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sausage"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sausage" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/pineapple"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pineapple" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/peppers"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/peppers" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/pepperoni"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pepperoni" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/onions"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onions" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mushrooms"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mushrooms" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/ham"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ham" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/black_olives"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/olives" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/submitPizzaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="submitPizza"
+            android:text="@string/submit" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

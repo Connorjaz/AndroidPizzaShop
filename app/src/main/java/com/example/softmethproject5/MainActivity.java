@@ -12,19 +12,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
+import backend.Order;
+import backend.StoreOrders;
+
 public class MainActivity extends AppCompatActivity {
+    private StoreOrders storeOrders = new StoreOrders();
     private String phoneNumber = null;
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private BroadcastReceiver receivePhoneNumber = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent){
             phoneNumber = intent.getStringExtra("phoneNumber");
             if(phoneNumber == null) return;
+        }
+    };
+    private BroadcastReceiver receiveOrder = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent){
+            Bundle args = intent.getBundleExtra("DATA");
+            Order order = (Order)args.getSerializable("order");
+            if(order == null) Toast.makeText(context, "order is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, order.getCustomerPhoneNumber(), Toast.LENGTH_SHORT).show();
+            storeOrders.addOrder(order);
+            phoneNumber = null;
         }
     };
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("receivePhoneNumber"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receivePhoneNumber, new IntentFilter("receivePhoneNumber"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiveOrder, new IntentFilter("receiveOrder"));
     }
 
     public void new_order(View view) {
@@ -41,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void store_orders(View view) {
         Intent intent = new Intent(this, StoreOrderActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable("storeOrders",(Serializable)storeOrders);
+        intent.putExtra("DATA",args);
         startActivity(intent);
         releaseInstance();
     }

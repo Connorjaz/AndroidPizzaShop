@@ -5,4 +5,22 @@
     <string name="store_orders">Store Orders</string>
     <string name="phone_number">Phone Number</string>
     <string name="submit">Submit</string>
+    <string name="add_pizza">ADD PIZZA</string>
+    <string name="place_order">PLACE ORDER</string>
+    <string name="pizza_customizer">Pizza Customizer</string>
+    <string name="deluxe">Deluxe</string>
+    <string name="pepperoni">Pepperoni</string>
+    <string name="bacon">Bacon</string>
+    <string name="hawaiian">Hawaiian</string>
+    <string name="sausage">Sausage</string>
+    <string name="ham">Ham</string>
+    <string name="mushrooms">Mushrooms</string>
+    <string name="onions">Onions</string>
+    <string name="olives">Olives</string>
+    <string name="peppers">Peppers</string>
+    <string name="pineapple">Pineapple</string>
+    <string name="tomato">Tomato</string>
+    <string name="extra_cheese">Extra Cheese</string>
+    <string name="dollar">$$$</string>
+    <string name="export_order">export order</string>
 </resources>
