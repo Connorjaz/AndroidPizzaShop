@@ -74,9 +74,12 @@ public class StoreOrderActivity extends AppCompatActivity {
             card.setPadding(15,15,15,15);
             ShapeDrawable divider = new ShapeDrawable();
             divider.setIntrinsicWidth(50);
+            divider.setIntrinsicHeight(50);
             divider.setAlpha(0);
             card.setDividerDrawable(divider);
             card.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            layout.setDividerDrawable(divider);
+            layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         }
     }
 }

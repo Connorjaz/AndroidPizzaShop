@@ -165,6 +165,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         args.putSerializable("order",(Serializable)order);
         intent.putExtra("DATA",args);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receivePizza);
         finish();
     }
 }

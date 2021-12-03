@@ -23,4 +23,7 @@
     <string name="extra_cheese">Extra Cheese</string>
     <string name="dollar">$$$</string>
     <string name="export_order">export order</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="large">Large</string>
 </resources>

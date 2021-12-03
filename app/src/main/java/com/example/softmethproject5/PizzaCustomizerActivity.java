@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import backend.Pizza;
 import backend.PizzaMaker;
+import backend.Size;
 import backend.Topping;
 
 public class PizzaCustomizerActivity extends AppCompatActivity {
@@ -98,6 +99,7 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
         }
     }
     public void submitPizza(View view){
+        //Get Pizza type
         RadioGroup radioGroup = findViewById(R.id.flavorGroup);
         String pizzaType =  ((RadioButton) (radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()))) != null ? ((RadioButton) (radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()))).getText()+"\n": "";
         if(pizzaType == null){
@@ -106,6 +108,16 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
         }
         Pizza p = PizzaMaker.createPizza(pizzaType.toLowerCase());
         if(p == null) return;
+
+        //Get size
+        ChipGroup sizeGroup = findViewById(R.id.sizeGroup);
+        if(sizeGroup.getCheckedChipId() != View.NO_ID) {
+            String size = ((Chip) sizeGroup.findViewById(sizeGroup.getCheckedChipId())).getText().toString();
+            if (size.toLowerCase().equals("medium")) p.changeSize(Size.MEDIUM);
+            else if (size.toLowerCase().equals("large")) p.changeSize(Size.LARGE);
+            else p.changeSize(Size.SMALL);
+        }
+        //Get toppings
         ChipGroup chipGroup = findViewById(R.id.toppingGroup);
         List<Integer> ids = chipGroup.getCheckedChipIds();
         for (Integer id:ids){
@@ -114,7 +126,7 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
             if(t == null || p.getToppings().contains(t)) continue;
             p.addToppings(t);
         }
-        Toast.makeText(this, p.toString() +"\n"+p.getToppings().toString(), Toast.LENGTH_SHORT).show();
+
         //send pizza
         Intent intent = new Intent("receivePizza");
         Bundle args = new Bundle();

@@ -15,8 +15,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/design_default_color_background"
-        android:gravity="center"
+        android:background="@color/black"
+        android:gravity="center|top"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,12 +24,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/pizzaCustomizerMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:text="@string/pizza_customizer"
+            android:textColor="@color/white"
+            android:textSize="34sp" />
+
         <RadioGroup
             android:id="@+id/flavorGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
             android:orientation="horizontal"
-            android:paddingBottom="100dp">
+            android:padding="5dp">
 
             <RadioButton
                 android:id="@+id/deluxePizza"
@@ -52,13 +65,49 @@
         </RadioGroup>
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/sizeGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            app:selectionRequired="false"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/smallToggle"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/small" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mediumToggle"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medium" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/largeToggle"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/large" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/toppingGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
             android:clickable="true"
             android:focusable="true"
-            android:paddingBottom="100dp"
+            android:padding="5dp"
             app:chipSpacing="5dp"
             app:chipSpacingHorizontal="5dp"
             app:chipSpacingVertical="5dp"
@@ -149,7 +198,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="submitPizza"
-            android:text="@string/submit" />
+            android:padding="15dp"
+            android:text="@string/submit"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
