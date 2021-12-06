@@ -41,7 +41,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         @Override public void onReceive(Context context, Intent intent){
             Bundle args = intent.getBundleExtra("DATA");
             Pizza pizza = (Pizza)args.getSerializable("pizza");
-            if(pizza == null) Toast.makeText(context, "pizza is null", Toast.LENGTH_SHORT).show();
+            if(pizza == null) Toast.makeText(context, R.string.nullPizzaError, Toast.LENGTH_SHORT).show();
             order.addToOrder(pizza);
             addPizzaVisuals(pizza);
         }
@@ -55,16 +55,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.activity_currentorder);
         String phoneNumber = intent.getStringExtra("phoneNumber");
-        Toast.makeText(this, "New order activity has been created", Toast.LENGTH_SHORT).show();
         TextView text = (TextView) findViewById(R.id.welcomeMessage);
         text.setText("Welcome "+phoneNumber);
         order = new Order(phoneNumber);
         LocalBroadcastManager.getInstance(this).registerReceiver(receivePhoneNumber, new IntentFilter("receivePhoneNumber"));
         LocalBroadcastManager.getInstance(this).registerReceiver(receivePizza, new IntentFilter("receivePizza"));
-    }
-    @Override protected void onResume(){
-        super.onResume();
-        Toast.makeText(this, "New order activity has been resumed", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onBackPressed() {

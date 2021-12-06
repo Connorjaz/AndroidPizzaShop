@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         @Override public void onReceive(Context context, Intent intent){
             Bundle args = intent.getBundleExtra("DATA");
             Order order = (Order)args.getSerializable("order");
-            if(order == null) Toast.makeText(context, "order is null", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context, order.getCustomerPhoneNumber(), Toast.LENGTH_SHORT).show();
-            storeOrders.addOrder(order);
+            if(order == null) Toast.makeText(context, R.string.emptyOrderError, Toast.LENGTH_SHORT).show();
+            else if(order.getPizzaOrder().size() > 0) storeOrders.addOrder(order);
+            else Toast.makeText(context, getString(R.string.emptyOrderError), Toast.LENGTH_SHORT).show();
             phoneNumber = null;
         }
     };

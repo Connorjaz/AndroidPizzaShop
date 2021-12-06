@@ -138,7 +138,7 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
         RadioGroup radioGroup = findViewById(R.id.flavorGroup);
         String pizzaType =  ((RadioButton) (radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()))) != null ? ((RadioButton) (radioGroup.findViewById(radioGroup.getCheckedRadioButtonId()))).getText()+"\n": "";
         if(pizzaType == null){
-            Toast.makeText(this, "Please select a Pizza Type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.selectPizzaType), Toast.LENGTH_SHORT).show();
             return;
         }
         Pizza p = PizzaMaker.createPizza(pizzaType.toLowerCase());

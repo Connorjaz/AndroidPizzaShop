@@ -31,7 +31,7 @@ public class StoreOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storeorders);
         Bundle args = getIntent().getBundleExtra("DATA");
         storeOrders = (StoreOrders) args.getSerializable("storeOrders");
-        if(storeOrders == null) Toast.makeText(this, "StoreOrders passed incorrectly", Toast.LENGTH_SHORT).show();
+        if(storeOrders == null) Toast.makeText(this, getString(R.string.nullStoreOrdersError), Toast.LENGTH_SHORT).show();
         addOrderVisuals();
     }
     private void addOrderVisuals() {

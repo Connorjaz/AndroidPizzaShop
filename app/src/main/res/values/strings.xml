@@ -26,4 +26,9 @@
     <string name="medium">Medium</string>
     <string name="small">Small</string>
     <string name="large">Large</string>
+    <string name="phoneNumberError">Please enter a valid phone number.</string>
+    <string name="emptyOrderError">Order was not placed because it was empty.</string>
+    <string name="nullPizzaError">Received pizza was invalid.</string>
+    <string name="nullStoreOrdersError">Received store orders were invalid.</string>
+    <string name="selectPizzaType">Please select a pizza type.</string>
 </resources>
