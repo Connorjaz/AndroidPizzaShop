@@ -21,20 +21,27 @@ import backend.Order;
 import backend.Pizza;
 import backend.StoreOrders;
 import backend.Topping;
-
+/**
+ The StoreOrderActivity class allows the user to view all past store orders.
+ @author Connor Aleksandrowicz (cja142), Ryan Berardi (rtb100)
+ */
 public class StoreOrderActivity extends AppCompatActivity {
+    //Variables
     private StoreOrders storeOrders;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    //Overridden android functions
+    /**
+     The onCreate function is used to set up the activity for the user.
+     It is responsible for reading in the store orders
+     s well as displaying all of the them to the user
+     @param savedInstanceState possible data to be used in creating the activity.
+     */
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storeorders);
         Bundle args = getIntent().getBundleExtra("DATA");
         storeOrders = (StoreOrders) args.getSerializable("storeOrders");
         if(storeOrders == null) Toast.makeText(this, getString(R.string.nullStoreOrdersError), Toast.LENGTH_SHORT).show();
-        addOrderVisuals();
-    }
-    private void addOrderVisuals() {
         //Get storeOrderWindow as variable to add child elements
         LinearLayout layout = (LinearLayout) findViewById(R.id.storeOrderWindow);
         for(Order o: storeOrders.getStoreOrders()){

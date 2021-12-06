@@ -27,16 +27,21 @@ import java.io.Serializable;
 import backend.Order;
 import backend.Pizza;
 import backend.Topping;
-
+/**
+ The CurrentOrderActivity class allows the user to view their current order
+ as well as add and remove pizzas, view the totals, and submit their order.
+ @author Connor Aleksandrowicz (cja142), Ryan Berardi (rtb100)
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
+    //Variables
     private Order order;
-    //When a new phone number is sent via NewOrderActivity, this receiver makes sure there is no currently running order.
+    //Used to erase the current order when a new order is submitted via the newOrder activity
     private BroadcastReceiver receivePhoneNumber = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent){
             finish();
         }
     };
-    //This broadcast receiver will receive the pizza
+    //Used to receive the user created pizza from the pizza customizer activity
     private BroadcastReceiver receivePizza = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent){
             Bundle args = intent.getBundleExtra("DATA");
@@ -46,11 +51,15 @@ public class CurrentOrderActivity extends AppCompatActivity {
             addPizzaVisuals(pizza);
         }
     };
-    public void finish(){
-        super.finish();
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    //Overridden android functions
+    /**
+     The onCreate function is used to set up the activity for the user.
+     It is responsible for loading the phoneNumber from the parent activity,
+     creating a new order, and registering the receivePhoneNumber and receivePizza receivers.
+     @param savedInstanceState possible data to be used in creating the activity.
+     */
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         setContentView(R.layout.activity_currentorder);
@@ -61,18 +70,31 @@ public class CurrentOrderActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(receivePhoneNumber, new IntentFilter("receivePhoneNumber"));
         LocalBroadcastManager.getInstance(this).registerReceiver(receivePizza, new IntentFilter("receivePizza"));
     }
-    @Override
-    public void onBackPressed() {
+    /**
+     The onBackPressed function is used to save the current order when a user
+     returns to the main menu but has not submitted their order.
+     */
+    @Override public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+
+    //Personal functions
+    /**
+     The updateTotals function is used to update the tax, subtotal, and total values.
+     */
     private void updateTotals(){
         ((TextView) findViewById(R.id.taxTotal)).setText("Tax: "+Double.toString(order.calculateSalesTax()));
         ((TextView) findViewById(R.id.subTotal)).setText("SubTotal: "+Double.toString(order.calculateSubTotal()));;
         ((TextView) findViewById(R.id.total)).setText("Total: "+Double.toString(order.calculateTotalCost()));;
 
     }
+    /**
+     The addPizzaVisuals function is used visually show the newly created pizza to the user.
+     Text displaying the flavor, size, toppings, price, and a remove button are displayed to the user.
+     @param pizza the pizza to be visualized.
+     */
     private void addPizzaVisuals(Pizza pizza) {
         //Get pizzaCustomizerWindow as variable to add child elements
         LinearLayout layout = (LinearLayout) findViewById(R.id.pizzaCustomizerWindow);
@@ -149,11 +171,21 @@ public class CurrentOrderActivity extends AppCompatActivity {
         card.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         updateTotals();
     }
+    /**
+     The addPizza function is used to transition to the pizza customizer activity upon the
+     press of the Add Pizza button.
+     @param view the view in which the click took place.
+     */
     public void addPizza(View view) {
         Intent intent = new Intent(this, PizzaCustomizerActivity.class);
         startActivity(intent);
         releaseInstance();
     }
+    /**
+     The placeOrder function is used to end the current activity and return the order data
+     to the main activity. The function is triggered upon the submit order button being pressed.
+     @param view the view in which the click took place.
+     */
     public void placeOrder(View view){
         Intent intent = new Intent("receiveOrder");
         Bundle args = new Bundle();
@@ -162,5 +194,12 @@ public class CurrentOrderActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receivePizza);
         finish();
+    }
+    /**
+     The finish function is used to end the current activity,
+     specifically when the receivePhoneNumber receiver is triggered.
+     */
+    public void finish(){
+        super.finish();
     }
 }

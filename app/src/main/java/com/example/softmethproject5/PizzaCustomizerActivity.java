@@ -23,12 +23,19 @@ import backend.Pizza;
 import backend.PizzaMaker;
 import backend.Size;
 import backend.Topping;
-
+/**
+ The PizzaCustomizerActivity class allows the user to create a new pizza.
+ The user is presented with different options for their pizza, totals, and a submit button.
+ @author Connor Aleksandrowicz (cja142), Ryan Berardi (rtb100)
+ */
 public class PizzaCustomizerActivity extends AppCompatActivity {
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    //Overridden android functions
+    /**
+     The onCreate function is used to set up the activity for the user.
+     It is responsible for creating a listener on the flavor options.
+     @param savedInstanceState possible data to be used in creating the activity.
+     */
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizzacustomizer);
         RadioGroup radioGroup = findViewById(R.id.flavorGroup);
@@ -68,9 +75,12 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
                 calculateCosts(null);
             }
         });
-
-        ChipGroup chipGroup = findViewById(R.id.toppingGroup);
     }
+
+    //Personal functions
+    /**
+     The wipeToppings function is used to reset the selected toppings.
+     */
     private void wipeToppings(){
         ChipGroup chipGroup = findViewById(R.id.toppingGroup);
         List<Integer> ids = chipGroup.getCheckedChipIds();
@@ -79,6 +89,10 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
             chip.setChecked(false);
         }
     }
+    /**
+     The convertTopping function is used to convert a String to a Topping.
+     @param topping the topping to be converted from String to Topping.
+     */
     private Topping convertTopping(String topping){
         switch(topping.toLowerCase()){
             case "olives":
@@ -107,6 +121,10 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
                 return null;
         }
     }
+    /**
+     The calculateCosts function is used to calculate and display the current pizza cost.
+     @param view the view in which the click took place.
+     */
     public void calculateCosts(View view){
         //Get Pizza type
         RadioGroup radioGroup = findViewById(R.id.flavorGroup);
@@ -133,6 +151,10 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
         }
         ((TextView)findViewById(R.id.Total)).setText("Subtotal: $"+p.price());
     }
+    /**
+     The submitPizza function is used to close the current activity and return the newly created pizza.
+     @param view the view in which the click took place.
+     */
     public void submitPizza(View view){
         //Get Pizza type
         RadioGroup radioGroup = findViewById(R.id.flavorGroup);
