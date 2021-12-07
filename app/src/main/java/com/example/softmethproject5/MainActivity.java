@@ -43,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
             phoneNumber = null;
         }
     };
+    //Used to receive the edited Store Order from store order activity
+    private BroadcastReceiver receiveNewStoreOrder = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent){
+            Bundle args = intent.getBundleExtra("DATA");
+            StoreOrders newStoreOrders = (StoreOrders) args.getSerializable("storeOrders");
+            if(newStoreOrders == null) Toast.makeText(context, R.string.emptyOrderError, Toast.LENGTH_SHORT).show();
+            else if(newStoreOrders.getStoreOrders().size() >= 0) storeOrders = newStoreOrders;
+            else Toast.makeText(context, getString(R.string.emptyOrderError), Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     //Overridden android functions
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         LocalBroadcastManager.getInstance(this).registerReceiver(receivePhoneNumber, new IntentFilter("receivePhoneNumber"));
         LocalBroadcastManager.getInstance(this).registerReceiver(receiveOrder, new IntentFilter("receiveOrder"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiveNewStoreOrder, new IntentFilter("receiveNewStoreOrders"));
     }
 
     //Personal functions

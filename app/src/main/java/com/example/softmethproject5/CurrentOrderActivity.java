@@ -23,6 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import backend.Order;
 import backend.Pizza;
@@ -35,6 +36,7 @@ import backend.Topping;
 public class CurrentOrderActivity extends AppCompatActivity {
     //Variables
     private Order order;
+    DecimalFormat df = new DecimalFormat("#.##");
     //Used to erase the current order when a new order is submitted via the newOrder activity
     private BroadcastReceiver receivePhoneNumber = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent){
@@ -85,9 +87,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
      The updateTotals function is used to update the tax, subtotal, and total values.
      */
     private void updateTotals(){
-        ((TextView) findViewById(R.id.taxTotal)).setText("Tax: "+Double.toString(order.calculateSalesTax()));
-        ((TextView) findViewById(R.id.subTotal)).setText("SubTotal: "+Double.toString(order.calculateSubTotal()));;
-        ((TextView) findViewById(R.id.total)).setText("Total: "+Double.toString(order.calculateTotalCost()));;
+        ((TextView) findViewById(R.id.taxTotal)).setText("Tax: "+df.format(order.calculateSalesTax()));
+        ((TextView) findViewById(R.id.subTotal)).setText("SubTotal: "+df.format(order.calculateSubTotal()));;
+        ((TextView) findViewById(R.id.total)).setText("Total: "+df.format(order.calculateTotalCost()));;
 
     }
     /**
@@ -131,7 +133,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
         //TextView for price
         TextView text4 = new TextView(this);
-        text4.setText(Double.toString(pizza.price()));
+        text4.setText(df.format(pizza.price()));
         text4.setGravity(Gravity.CENTER);
         card.addView(text4);
 

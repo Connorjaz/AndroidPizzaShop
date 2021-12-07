@@ -16,6 +16,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,6 +30,8 @@ import backend.Topping;
  @author Connor Aleksandrowicz (cja142), Ryan Berardi (rtb100)
  */
 public class PizzaCustomizerActivity extends AppCompatActivity {
+    //variables
+    DecimalFormat df = new DecimalFormat("#.##");
     //Overridden android functions
     /**
      The onCreate function is used to set up the activity for the user.
@@ -149,7 +152,7 @@ public class PizzaCustomizerActivity extends AppCompatActivity {
             if(t == null || p.getToppings().contains(t)) continue;
             p.addToppings(t);
         }
-        ((TextView)findViewById(R.id.Total)).setText("Subtotal: $"+p.price());
+        ((TextView)findViewById(R.id.Total)).setText("Subtotal: $"+df.format(p.price()));
     }
     /**
      The submitPizza function is used to close the current activity and return the newly created pizza.

@@ -1,6 +1,7 @@
 package com.example.softmethproject5;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.io.Serializable;
+import java.text.DecimalFormat;
+
 import backend.Order;
 import backend.Pizza;
 import backend.StoreOrders;
@@ -28,6 +32,7 @@ import backend.Topping;
 public class StoreOrderActivity extends AppCompatActivity {
     //Variables
     private StoreOrders storeOrders;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     //Overridden android functions
     /**
@@ -68,11 +73,31 @@ public class StoreOrderActivity extends AppCompatActivity {
             card.addView(scrollView);
             //TextView for price
             TextView text2 = new TextView(this);
-            text2.setText(Double.toString(o.calculateTotalCost()));
+            text2.setText(df.format(o.calculateTotalCost()));
             text2.setGravity(Gravity.CENTER);
             card.addView(text2);
             //Add card to storeOrderWindow
             layout.addView(card);
+
+            //Button for remove
+            Button remove = new Button(this);
+            remove.setText("Remove");
+            remove.setGravity(Gravity.CENTER);
+            remove.setTag(o);
+            //function that removes pizza when the remove button is called
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Order p2 = null;
+                    for(Order p1: storeOrders.getStoreOrders()){
+                        if(p1.equals(remove.getTag())) p2 = p1;
+                    }
+                    storeOrders.removeOrder(p2);
+                    layout.removeView(card);
+                }
+            });
+            card.addView(remove);
+
             //This is all formatting stuff
             ViewGroup.LayoutParams params = card.getLayoutParams();
             params.height = 150;
@@ -88,5 +113,17 @@ public class StoreOrderActivity extends AppCompatActivity {
             layout.setDividerDrawable(divider);
             layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         }
+    }
+    /**
+     The onDestroy function is used to return the storeOrders back to the main activity,
+     this is to account for changes made by the user.
+     */
+    @Override protected void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent("receiveNewStoreOrders");
+        Bundle args = new Bundle();
+        args.putSerializable("storeOrders",(Serializable)storeOrders);
+        intent.putExtra("DATA",args);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
